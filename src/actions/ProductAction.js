@@ -1,4 +1,4 @@
-import { ADD_TO_CART, CHECKOUT } from "./types";
+import { ADD_TO_CART, CHECKOUT, REMOVE_PRODUCT } from "./types";
 
 export function addToCart(product) {
   return {
@@ -10,6 +10,12 @@ export function addToCart(product) {
 export function checkOut(product) {
   return {
     type: CHECKOUT,
+    product
+  };
+}
+export function removeProduct(product) {
+  return {
+    type: REMOVE_PRODUCT,
     product
   };
 }

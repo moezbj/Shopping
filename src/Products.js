@@ -23,16 +23,6 @@ class Products extends Component {
       data: ds.cloneWithRows(this.props.products)
     };
   }
-  renderSeparator = () => (
-    <View
-      style={{
-        height: 1,
-        width: "86%",
-        backgroundColor: "#CED0CE",
-        margin: 10
-      }}
-    />
-  );
   renderItem = item => {
     return (
       <View style={styles.prod}>
@@ -43,7 +33,7 @@ class Products extends Component {
           onPress={() => this.props.addToCart(item)}
           style={styles.btn}
         >
-          <Text style={styles.text}>add</Text>
+          <Text style={styles.text}>Add to Cart</Text>
         </TouchableOpacity>
       </View>
     );
@@ -57,11 +47,13 @@ class Products extends Component {
           data={this.props.products}
           renderItem={this.renderItem}
           keyExtractor={(item, key) => key.toString()}
-          renderSeparator={this.renderSeparator}
         />
-        <TouchableOpacity onPress={Actions.cart} style={styles.btn}>
-          <Text style={styles.text}>My Cart </Text>
-        </TouchableOpacity>
+
+        <View style={styles.footer}>
+          <TouchableOpacity onPress={Actions.cart} style={styles.btn}>
+            <Text style={styles.text}>My Cart </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -86,7 +78,12 @@ const styles = StyleSheet.create({
   prod: {
     padding: 20,
     borderColor: "black",
-    borderWidth: 1
+    borderWidth: 1,
+    backgroundColor: "#78909C"
+  },
+  footer: {
+    justifyContent: "center",
+    alignItems: "center"
   }
 });
 

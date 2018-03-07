@@ -6,26 +6,56 @@ import {
   View,
   FlatList,
   ListItem,
-  Button
+  ListView,
+  Button,
+  TouchableOpacity
 } from "react-native";
 import { connect } from "react-redux";
-import { checkOut } from "./actions/ProductAction";
+import Icon from "react-native-vector-icons/FontAwesome";
+import { checkOut, removeProduct } from "./actions/ProductAction";
 
 class Cart extends Component {
+  constructor(props) {
+    super(props);
+    const ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2
+    });
+    this.state = {
+      data: ds.cloneWithRows(this.props.myCart)
+    };
+  }
+  renderItem = item => {
+    console.log(item);
+    const id = item.index;
+    return (
+      <View style={styles.main}>
+        <View style={styles.prod}>
+          <Text style={styles.text}> {item.item}</Text>
+        </View>
+        <TouchableOpacity
+          style={styles.icon}
+          onPress={() => this.props.removeProduct(id)}
+        >
+          <Icon name="remove" size={30} color="#900" />
+        </TouchableOpacity>
+      </View>
+    );
+  };
   render() {
     return (
       <View>
-        <View>
-          {this.props.myCart.map((el, i) => {
-            return (
-              <View key={i}>
-                <Text style={styles.text}>Product : {el}</Text>
-              </View>
-            );
-          })}
-          <Text style={styles.text}>Total :{this.props.total} $</Text>
-          <Button title="chekout" onPress={this.props.checkOut} />
-        </View>
+        <FlatList
+          data={this.props.myCart}
+          renderItem={this.renderItem}
+          keyExtractor={(item, key) => key.toString()}
+          renderSeparator={this.renderSeparator}
+        />
+        <Text style={styles.text}>Total :{this.props.total} $</Text>
+        <Button
+          title="chekout"
+          onPress={this.props.checkOut}
+          style={styles.btn}
+        />
       </View>
     );
   }
@@ -34,12 +64,34 @@ class Cart extends Component {
 const styles = StyleSheet.create({
   text: {
     fontSize: 30
+  },
+  btn: {
+    marginTop: 20
+  },
+  main: {
+    flexDirection: "row"
+  },
+  prod: {
+    flex: 3,
+    borderWidth: 1,
+    borderColor: "blue"
+  },
+  icon: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "blue"
   }
 });
+
 const mapDispatchToProps = dispatch => {
   return {
     checkOut: () => {
       dispatch(checkOut());
+    },
+    removeProduct: id => {
+      dispatch(removeProduct(id));
     }
   };
 };

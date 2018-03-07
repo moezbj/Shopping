@@ -9,7 +9,7 @@ import Cart from "./Cart.js";
 
 import Roots from "./roots/Roots";
 
-import { addToCart, checkOut } from "./actions/ProductAction";
+import { addToCart, checkOut, removeProduct } from "./actions/ProductAction";
 
 class HomePage extends Component {
   addToCart = item => {
@@ -18,6 +18,9 @@ class HomePage extends Component {
   checkOut() {
     this.props.checkOut();
   }
+  removeProduct = id => {
+    this.props.removeProduct(id);
+  };
   render() {
     return (
       <View style={styles.container}>
@@ -40,5 +43,6 @@ const mapStateToProps = state => {
 };
 export default connect(mapStateToProps, {
   addToCart,
-  checkOut
+  checkOut,
+  removeProduct
 })(HomePage);

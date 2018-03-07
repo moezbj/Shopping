@@ -1,4 +1,4 @@
-import { ADD_TO_CART, CHECKOUT } from "../actions/types";
+import { ADD_TO_CART, CHECKOUT, REMOVE_PRODUCT } from "../actions/types";
 
 const INITIAL_STATE = {
   products: [
@@ -40,6 +40,7 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
+  console.log(action.product);
   switch (action.type) {
     case ADD_TO_CART:
       const myCart = state.myCart;
@@ -51,6 +52,11 @@ export default (state = INITIAL_STATE, action) => {
       };
     case CHECKOUT:
       return { ...state, myCart: [], total: 0 };
+    case REMOVE_PRODUCT:
+      return {
+        ...state,
+        myCart: myCart.delete(action.product)
+      };
     default:
       return state;
   }
