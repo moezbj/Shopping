@@ -11,6 +11,7 @@ import {
 
 import { connect } from "react-redux";
 import { addToCart } from "./actions/ProductAction";
+import { Actions } from "react-native-router-flux";
 
 class Products extends Component {
   constructor(props) {
@@ -26,14 +27,14 @@ class Products extends Component {
   renderItem = item => {
     return (
       <View style={{ flexDirection: "row", padding: 20 }}>
-        <Text>{item.item.name}</Text>
-        <Text>- Price:</Text>
-        <Text>{item.item.price}</Text>
+        <Text style={styles.text}>{item.item.name}</Text>
+        <Text style={styles.text}>- Price:</Text>
+        <Text style={styles.text}>{item.item.price}</Text>
         <TouchableOpacity
           onPress={() => this.props.addToCart(item)}
-          style={{ borderWidth: 1, borderColor: "grey", marginLeft: 15 }}
+          style={styles.btn}
         >
-          <Text>add</Text>
+          <Text style={styles.text}>add</Text>
         </TouchableOpacity>
       </View>
     );
@@ -41,14 +42,33 @@ class Products extends Component {
 
   render() {
     return (
-      <FlatList
-        data={this.props.products}
-        renderItem={this.renderItem}
-        keyExtractor={(item, key) => key.toString()}
-      />
+      <View>
+        <FlatList
+          data={this.props.products}
+          renderItem={this.renderItem}
+          keyExtractor={(item, key) => key.toString()}
+        />
+        <TouchableOpacity onPress={Actions.cart} style={styles.btn}>
+          <Text style={styles.text}>My Cart </Text>
+        </TouchableOpacity>
+      </View>
     );
   }
 }
+const styles = StyleSheet.create({
+  btn: {
+    alignSelf: "center",
+    backgroundColor: "orange",
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: "#253748",
+    marginLeft: 5,
+    marginRight: 5
+  },
+  text: {
+    fontSize: 30
+  }
+});
 
 const mapDispatchToProps = dispatch => {
   return {

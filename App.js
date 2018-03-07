@@ -12,10 +12,15 @@ export default class App extends Component<Props> {
 
     return (
       <Provider store={store}>
-        <View>
+        <View style={styles.container}>
           <HomePage />
         </View>
       </Provider>
     );
   }
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  }
+});
