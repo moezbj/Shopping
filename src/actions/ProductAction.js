@@ -13,9 +13,9 @@ export function checkOut(product) {
     product
   };
 }
-export function removeProduct(product) {
+export function removeProduct(id) {
   return {
     type: REMOVE_PRODUCT,
-    product
+    id
   };
 }

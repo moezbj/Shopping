@@ -25,7 +25,6 @@ class Cart extends Component {
     };
   }
   renderItem = item => {
-    console.log(item);
     const id = item.index;
     return (
       <View style={styles.main}>
@@ -34,7 +33,7 @@ class Cart extends Component {
         </View>
         <TouchableOpacity
           style={styles.icon}
-          onPress={() => this.props.removeProduct(id)}
+          onPress={() => this.props.removeProduct(item.index)}
         >
           <Icon name="remove" size={30} color="#900" />
         </TouchableOpacity>
