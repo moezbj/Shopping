@@ -13,25 +13,29 @@ import { checkOut } from "./actions/ProductAction";
 
 class Cart extends Component {
   render() {
-    console.log(this.props.myCart);
     return (
       <View>
-        <Text>Your Cart</Text>
         <View>
           {this.props.myCart.map((el, i) => {
             return (
               <View key={i}>
-                <Text>Product Name : {el}</Text>
+                <Text style={styles.text}>Product : {el}</Text>
               </View>
             );
           })}
-          <Text>Total :{this.props.total} $</Text>
+          <Text style={styles.text}>Total :{this.props.total} $</Text>
           <Button title="chekout" onPress={this.props.checkOut} />
         </View>
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 30
+  }
+});
 const mapDispatchToProps = dispatch => {
   return {
     checkOut: () => {

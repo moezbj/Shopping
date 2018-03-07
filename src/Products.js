@@ -23,10 +23,19 @@ class Products extends Component {
       data: ds.cloneWithRows(this.props.products)
     };
   }
-
+  renderSeparator = () => (
+    <View
+      style={{
+        height: 1,
+        width: "86%",
+        backgroundColor: "#CED0CE",
+        margin: 10
+      }}
+    />
+  );
   renderItem = item => {
     return (
-      <View style={{ flexDirection: "row", padding: 20 }}>
+      <View style={styles.prod}>
         <Text style={styles.text}>{item.item.name}</Text>
         <Text style={styles.text}>- Price:</Text>
         <Text style={styles.text}>{item.item.price}</Text>
@@ -42,11 +51,13 @@ class Products extends Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <FlatList
+          horizontal
           data={this.props.products}
           renderItem={this.renderItem}
           keyExtractor={(item, key) => key.toString()}
+          renderSeparator={this.renderSeparator}
         />
         <TouchableOpacity onPress={Actions.cart} style={styles.btn}>
           <Text style={styles.text}>My Cart </Text>
@@ -56,6 +67,10 @@ class Products extends Component {
   }
 }
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff"
+  },
   btn: {
     alignSelf: "center",
     backgroundColor: "orange",
@@ -67,6 +82,11 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 30
+  },
+  prod: {
+    padding: 20,
+    borderColor: "black",
+    borderWidth: 1
   }
 });
 

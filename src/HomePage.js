@@ -6,6 +6,7 @@ import { Actions, Scene, Router } from "react-native-router-flux";
 
 import Products from "./Products.js";
 import Cart from "./Cart.js";
+
 import Roots from "./roots/Roots";
 
 import { addToCart, checkOut } from "./actions/ProductAction";
@@ -29,18 +30,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff"
-  },
-  btn: {
-    alignSelf: "center",
-    backgroundColor: "orange",
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: "#253748",
-    marginLeft: 5,
-    marginRight: 5
-  },
-  text: {
-    fontSize: 30
   }
 });
 const mapStateToProps = state => {

@@ -13,6 +13,26 @@ const INITIAL_STATE = {
     {
       name: "bsal",
       price: 1000
+    },
+    {
+      name: "9ra3",
+      price: 1500
+    },
+    {
+      name: "sfeneriya",
+      price: 2000
+    },
+    {
+      name: "kromb",
+      price: 1000
+    },
+    {
+      name: "batata",
+      price: 3000
+    },
+    {
+      name: "homs",
+      price: 2000
     }
   ],
   myCart: [],
@@ -22,7 +42,6 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ADD_TO_CART:
-      console.log(action);
       const myCart = state.myCart;
       myCart.push(action.product.item.name);
       return {
