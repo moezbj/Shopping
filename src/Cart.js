@@ -11,7 +11,7 @@ import {
   TouchableOpacity
 } from "react-native";
 import { connect } from "react-redux";
-import Icon from "react-native-vector-icons/FontAwesome";
+import Icon from "react-native-vector-icons/MaterialIcons";
 import { checkOut, removeProduct } from "./actions/ProductAction";
 
 class Cart extends Component {
@@ -24,17 +24,18 @@ class Cart extends Component {
       data: ds.cloneWithRows(this.props.myCart)
     };
   }
-  renderItem = item => {
+  renderItem = ({ item, index }) => {
+    console.log(item);
     return (
       <View style={styles.main}>
         <View style={styles.prod}>
-          <Text style={styles.text}> {item.item.name}</Text>
+          <Text style={styles.text}> {item.name}</Text>
         </View>
         <TouchableOpacity
           style={styles.icon}
-          onPress={() => this.props.removeProduct(item)}
+          onPress={() => this.props.removeProduct({ ...item, index })}
         >
-          <Icon name="remove" size={30} color="#900" />
+          <Icon name="remove-shopping-cart" size={30} color="#900" />
         </TouchableOpacity>
       </View>
     );
@@ -70,16 +71,12 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   prod: {
-    flex: 3,
-    borderWidth: 1,
-    borderColor: "blue"
+    flex: 3
   },
   icon: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
-    borderWidth: 1,
-    borderColor: "blue"
+    alignItems: "center"
   }
 });
 

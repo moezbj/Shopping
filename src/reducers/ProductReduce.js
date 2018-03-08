@@ -3,36 +3,39 @@ import { ADD_TO_CART, CHECKOUT, REMOVE_PRODUCT } from "../actions/types";
 const INITIAL_STATE = {
   products: [
     {
-      name: "felfel",
-      price: 3000
+      name: "Poivre",
+      price: 3000,
+      url: "capsicum"
     },
     {
-      name: "tmatem",
-      price: 2000
+      name: "Tomato",
+      price: 2000,
+      url: "tomato"
     },
     {
-      name: "bsal",
-      price: 1000
+      name: "Onion",
+      price: 1000,
+      url: "onion"
     },
     {
-      name: "9ra3",
-      price: 1500
+      name: "Pumpkin",
+      price: 1500,
+      url: "pumpkin"
     },
     {
-      name: "sfeneriya",
-      price: 2000
+      name: "Carrot",
+      price: 2000,
+      url: "carrot"
     },
     {
-      name: "kromb",
-      price: 1000
+      name: "Chou",
+      price: 1000,
+      url: "cabbage"
     },
     {
-      name: "batata",
-      price: 3000
-    },
-    {
-      name: "homs",
-      price: 2000
+      name: "Pomme de terre",
+      price: 3000,
+      url: "potato"
     }
   ],
   myCart: [],
@@ -40,23 +43,24 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
+  console.log(action);
   switch (action.type) {
     case ADD_TO_CART:
       const myCart = state.myCart;
-      myCart.push(action.product.item);
+
+      myCart.push({ name: action.product.name, price: action.product.price });
       return {
         ...state,
         myCart,
-        total: state.total + action.product.item.price
+        total: state.total + action.product.price
       };
     case CHECKOUT:
       return { ...state, myCart: [], total: 0 };
     case REMOVE_PRODUCT:
-      console.log(action);
+      console.log(action.item.index);
       const cart = state.myCart;
-      const id = action.id;
-      const price = action.item.item.price;
-      cart.splice(id, 1);
+      const { price, index } = action.item;
+      cart.splice(index, 1);
       return {
         ...state,
         cart,

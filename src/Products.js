@@ -6,12 +6,14 @@ import {
   View,
   FlatList,
   ListView,
-  TouchableOpacity
+  TouchableOpacity,
+  Image
 } from "react-native";
 
 import { connect } from "react-redux";
 import { addToCart } from "./actions/ProductAction";
 import { Actions } from "react-native-router-flux";
+import images from "./images";
 
 class Products extends Component {
   constructor(props) {
@@ -23,16 +25,18 @@ class Products extends Component {
       data: ds.cloneWithRows(this.props.products)
     };
   }
-  renderItem = item => {
+
+  renderItem = ({ item }) => {
+    const { addToCart } = this.props;
     return (
       <View style={styles.prod}>
-        <Text style={styles.text}>{item.item.name}</Text>
-        <Text style={styles.text}>- Price:</Text>
-        <Text style={styles.text}>{item.item.price}</Text>
-        <TouchableOpacity
-          onPress={() => this.props.addToCart(item)}
-          style={styles.btn}
-        >
+        <Text style={styles.text}>{item.name}</Text>
+        <Image style={styles.img} source={images[item.url]} />
+        <View style={{ flexDirection: "row", alignSelf: "center" }}>
+          <Text style={styles.text}>Price:</Text>
+          <Text style={styles.text}>{item.price}/Kg</Text>
+        </View>
+        <TouchableOpacity onPress={() => addToCart(item)} style={styles.btnAdd}>
           <Text style={styles.text}>Add to Cart</Text>
         </TouchableOpacity>
       </View>
@@ -43,7 +47,6 @@ class Products extends Component {
     return (
       <View style={styles.container}>
         <FlatList
-          horizontal
           data={this.props.products}
           renderItem={this.renderItem}
           keyExtractor={(item, key) => key.toString()}
@@ -61,7 +64,7 @@ class Products extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff"
+    backgroundColor: "transparent"
   },
   btn: {
     alignSelf: "center",
@@ -72,8 +75,20 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     marginRight: 5
   },
+  btnAdd: {
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "orange",
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: "#253748",
+    marginLeft: 5,
+    marginRight: 5
+  },
   text: {
-    fontSize: 30
+    fontSize: 30,
+    color: "white",
+    alignSelf: "center"
   },
   prod: {
     padding: 20,
@@ -84,6 +99,12 @@ const styles = StyleSheet.create({
   footer: {
     justifyContent: "center",
     alignItems: "center"
+  },
+  img: {
+    width: 260,
+    height: 260,
+    alignSelf: "center",
+    margin: 5
   }
 });
 
