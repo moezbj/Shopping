@@ -18,8 +18,8 @@ class HomePage extends Component {
   checkOut() {
     this.props.checkOut();
   }
-  removeProduct = id => {
-    this.props.removeProduct(id);
+  removeProduct = item => {
+    this.props.removeProduct(item);
   };
   render() {
     return (

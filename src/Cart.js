@@ -25,15 +25,14 @@ class Cart extends Component {
     };
   }
   renderItem = item => {
-    const id = item.index;
     return (
       <View style={styles.main}>
         <View style={styles.prod}>
-          <Text style={styles.text}> {item.item}</Text>
+          <Text style={styles.text}> {item.item.name}</Text>
         </View>
         <TouchableOpacity
           style={styles.icon}
-          onPress={() => this.props.removeProduct(item.index)}
+          onPress={() => this.props.removeProduct(item)}
         >
           <Icon name="remove" size={30} color="#900" />
         </TouchableOpacity>
@@ -89,8 +88,8 @@ const mapDispatchToProps = dispatch => {
     checkOut: () => {
       dispatch(checkOut());
     },
-    removeProduct: id => {
-      dispatch(removeProduct(id));
+    removeProduct: item => {
+      dispatch(removeProduct(item));
     }
   };
 };

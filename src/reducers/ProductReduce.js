@@ -40,11 +40,10 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-  console.log(action.id);
   switch (action.type) {
     case ADD_TO_CART:
       const myCart = state.myCart;
-      myCart.push(action.product.item.name);
+      myCart.push(action.product.item);
       return {
         ...state,
         myCart,
@@ -53,12 +52,15 @@ export default (state = INITIAL_STATE, action) => {
     case CHECKOUT:
       return { ...state, myCart: [], total: 0 };
     case REMOVE_PRODUCT:
+      console.log(action);
       const cart = state.myCart;
       const id = action.id;
+      const price = action.item.item.price;
       cart.splice(id, 1);
       return {
         ...state,
-        cart
+        cart,
+        total: state.total - price
       };
     default:
       return state;
