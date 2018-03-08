@@ -3,7 +3,7 @@ import { ADD_TO_CART, CHECKOUT, REMOVE_PRODUCT } from "../actions/types";
 const INITIAL_STATE = {
   products: [
     {
-      name: "Poivre",
+      name: "Pepper",
       price: 3000,
       url: "capsicum"
     },
